@@ -8,7 +8,6 @@ set t_Co=256
 colorscheme desert
 
 let mapleader = "\\"
-
 set encoding=utf-8
 set mouse=a
 set number
@@ -24,14 +23,8 @@ set expandtab
 set ruler
 set laststatus=2
 
-"set ffs=unix,dos
-"set ff=unix
-
-set swapfile
-set directory=~/.vim/tmp/swap/
-if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
-endif
+set ffs=unix,dos
+set ff=unix
 
 "set indentation for files"
 augroup indent
@@ -42,8 +35,9 @@ augroup indent
     au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 et
 augroup END
 
-call plug#begin()
-Plug 'mileszs/ack.vim'
+"Plugins using vim-plug"
+"call plug#begin()
+"Plug 'mileszs/ack.vim'
 "nnore <C-J> :cn<CR>
 "nnore <C-K> :cp<CR>
 "nnore ,, :Ack <C-R><C-W><cr>
@@ -55,13 +49,16 @@ Plug 'mileszs/ack.vim'
 "let g:jedi#popup_select_first = 0
 "let g:jedi#show_call_signatures = 0
 "let g:jedi#smart_auto_mappings = 0
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
+"nnoremap ,m :CtrlPMRUFiles<CR>
 "Plug 'tpope/vim-fugitive'
 "Plug 'vim-airline/vim-airline'
 "Plug 'Glench/Vim-Jinja2-Syntax'
 "Plug 'osyo-manga/vim-brightest'
 "Plug 'stefandtw/quickfix-reflector.vim'
-call plug#end()
+"Plug 'aspickard/vim-pydocstring'
+"Plug 'groenewege/vim-less'
+"call plug#end()
 
 "Move vertically by visual line"
 nnoremap j gj
@@ -70,29 +67,34 @@ nnoremap k gk
 "Splits"
 set splitbelow
 set splitright
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-"Tabs"
-nnoremap tl :tabnext<CR>
-nnoremap th :tabprev<CR>
 
 "Shortcut to navigate files"
 nnoremap - :e %:h<cr>
-nnoremap t- :tabe %:h<cr>
 
-"Shortcut to toggle highlighting"
-nnoremap <F12> :set hls!<cr>
+"Convert JSON into pretty printed json"
+command! FormatJSON execute "%!python -m json.tool"
 
-"Remove trailing spaces
+"Remove trailing spaces"
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-"nnoremap ,t :tab sp<cr>
+"Settings for gvim"
+"set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+set mousemodel=popup "show context menu on right click
+
+"Taken from other peoples' vimrc"
+nnoremap ,t :tab sp<cr>
+nnoremap ,v :vsplit sp<cr>
 "nnoremap ,v :tabe ~/.vimrc<cr>
-nnoremap ; :
-inoremap jj <esc>
+"nnoremap ; :
+"inoremap jj <esc>
+set swapfile
+set directory=~/.vim/tmp/swap/
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
 "set backup
 "set backupdir=~/.vim/tmp/backup/
 "if !isdirectory(expand(&backupdir))
@@ -103,4 +105,3 @@ inoremap jj <esc>
 "if !isdirectory(expand(&undodir))
 "    call mkdir(expand(&undodir), "p")
 "endif
-
